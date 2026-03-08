@@ -35,8 +35,8 @@ Get your API token from [AceDataCloud Platform](https://platform.acedata.cloud):
 
 ```bash
 # Clone the repository
-git clone https://github.com/AceDataCloud/mcp-seedance.git
-cd mcp-seedance
+git clone https://github.com/AceDataCloud/MCPSeedance.git
+cd MCPSeedance
 
 # Install with pip
 pip install -e .
@@ -263,8 +263,8 @@ Options:
 
 ```bash
 # Clone repository
-git clone https://github.com/AceDataCloud/mcp-seedance.git
-cd mcp-seedance
+git clone https://github.com/AceDataCloud/MCPSeedance.git
+cd MCPSeedance
 
 # Create virtual environment
 python -m venv .venv

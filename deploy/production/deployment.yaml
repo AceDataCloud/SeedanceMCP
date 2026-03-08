@@ -47,3 +47,8 @@ spec:
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: docker-registry
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

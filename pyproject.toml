@@ -67,11 +67,11 @@ all = [
 mcp-seedance = "main:main"
 
 [project.urls]
-Homepage = "https://github.com/AceDataCloud/mcp-seedance"
-Documentation = "https://platform.acedata.cloud/documents/seedance-videos-integration"
-Repository = "https://github.com/AceDataCloud/mcp-seedance"
-Issues = "https://github.com/AceDataCloud/mcp-seedance/issues"
-Changelog = "https://github.com/AceDataCloud/mcp-seedance/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/AceDataCloud/MCPSeedance"
+Documentation = "https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8"
+Repository = "https://github.com/AceDataCloud/MCPSeedance"
+Issues = "https://github.com/AceDataCloud/MCPSeedance/issues"
+Changelog = "https://github.com/AceDataCloud/MCPSeedance/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["hatchling<1.26.0"]
