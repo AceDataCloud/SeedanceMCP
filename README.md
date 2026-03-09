@@ -160,10 +160,10 @@ Clients connect with their own Bearer token — the server extracts the token fr
 
 ### Video Generation
 
-| Tool                                  | Description                                      |
-| ------------------------------------- | ------------------------------------------------ |
-| `seedance_generate_video`             | Generate video from a text prompt                |
-| `seedance_generate_video_from_image`  | Generate video using reference/start/end images  |
+| Tool                                 | Description                                     |
+| ------------------------------------ | ----------------------------------------------- |
+| `seedance_generate_video`            | Generate video from a text prompt               |
+| `seedance_generate_video_from_image` | Generate video using reference/start/end images |
 
 ### Tasks
 
@@ -174,11 +174,11 @@ Clients connect with their own Bearer token — the server extracts the token fr
 
 ### Information
 
-| Tool                          | Description                       |
-| ----------------------------- | --------------------------------- |
-| `seedance_list_models`        | List available Seedance models    |
-| `seedance_list_resolutions`   | List available output resolutions |
-| `seedance_list_actions`       | List available API actions        |
+| Tool                        | Description                       |
+| --------------------------- | --------------------------------- |
+| `seedance_list_models`      | List available Seedance models    |
+| `seedance_list_resolutions` | List available output resolutions |
+| `seedance_list_actions`     | List available API actions        |
 
 ## Usage Examples
 
@@ -211,13 +211,13 @@ Claude: I'll generate a video with synchronized audio.
 
 ## Available Models
 
-| Model                                | Description       | Features                    |
-| ------------------------------------ | ----------------- | --------------------------- |
-| `doubao-seedance-1-5-pro-250528`     | 1.5 Pro           | Audio generation, T2V, I2V  |
-| `doubao-seedance-1-0-pro-250528`     | 1.0 Pro (default) | High quality T2V, I2V       |
-| `doubao-seedance-1-0-pro-fast-250528`| 1.0 Pro Fast      | Faster generation           |
-| `doubao-seedance-1-0-lite-t2v-250528`| 1.0 Lite T2V      | Lightweight text-to-video   |
-| `doubao-seedance-1-0-lite-i2v-250528`| 1.0 Lite I2V      | Lightweight image-to-video  |
+| Model                                 | Description       | Features                   |
+| ------------------------------------- | ----------------- | -------------------------- |
+| `doubao-seedance-1-5-pro-250528`      | 1.5 Pro           | Audio generation, T2V, I2V |
+| `doubao-seedance-1-0-pro-250528`      | 1.0 Pro (default) | High quality T2V, I2V      |
+| `doubao-seedance-1-0-pro-fast-250528` | 1.0 Pro Fast      | Faster generation          |
+| `doubao-seedance-1-0-lite-t2v-250528` | 1.0 Lite T2V      | Lightweight text-to-video  |
+| `doubao-seedance-1-0-lite-i2v-250528` | 1.0 Lite I2V      | Lightweight image-to-video |
 
 ## Available Aspect Ratios
 
@@ -235,16 +235,16 @@ Claude: I'll generate a video with synchronized audio.
 
 ### Environment Variables
 
-| Variable                      | Description                 | Default                           |
-| ----------------------------- | --------------------------- | --------------------------------- |
-| `ACEDATACLOUD_API_TOKEN`      | API token from AceDataCloud | **Required**                      |
-| `ACEDATACLOUD_API_BASE_URL`   | API base URL                | `https://api.acedata.cloud`       |
-| `SEEDANCE_DEFAULT_MODEL`      | Default model               | `doubao-seedance-1-0-pro-250528`  |
-| `SEEDANCE_DEFAULT_RESOLUTION` | Default resolution          | `720p`                            |
-| `SEEDANCE_DEFAULT_RATIO`      | Default aspect ratio        | `16:9`                            |
-| `SEEDANCE_DEFAULT_DURATION`   | Default duration (seconds)  | `5`                               |
-| `SEEDANCE_REQUEST_TIMEOUT`    | Request timeout in seconds  | `1800`                            |
-| `LOG_LEVEL`                   | Logging level               | `INFO`                            |
+| Variable                      | Description                 | Default                          |
+| ----------------------------- | --------------------------- | -------------------------------- |
+| `ACEDATACLOUD_API_TOKEN`      | API token from AceDataCloud | **Required**                     |
+| `ACEDATACLOUD_API_BASE_URL`   | API base URL                | `https://api.acedata.cloud`      |
+| `SEEDANCE_DEFAULT_MODEL`      | Default model               | `doubao-seedance-1-0-pro-250528` |
+| `SEEDANCE_DEFAULT_RESOLUTION` | Default resolution          | `720p`                           |
+| `SEEDANCE_DEFAULT_RATIO`      | Default aspect ratio        | `16:9`                           |
+| `SEEDANCE_DEFAULT_DURATION`   | Default duration (seconds)  | `5`                              |
+| `SEEDANCE_REQUEST_TIMEOUT`    | Request timeout in seconds  | `1800`                           |
+| `LOG_LEVEL`                   | Logging level               | `INFO`                           |
 
 ### Command Line Options
 
