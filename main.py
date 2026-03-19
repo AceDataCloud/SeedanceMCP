@@ -167,6 +167,11 @@ Environment Variables:
                             await self.app(scope, receive, send)
                             return
                         headers = dict(scope.get("headers", []))
+                        # Allow SmitheryBot scan requests through for registry scanning
+                        user_agent = headers.get(b"user-agent", b"").decode()
+                        if user_agent.startswith("SmitheryBot/"):
+                            await self.app(scope, receive, send)
+                            return
                         auth = headers.get(b"authorization", b"").decode()
                         if auth.startswith("Bearer "):
                             set_request_api_token(auth[7:])
