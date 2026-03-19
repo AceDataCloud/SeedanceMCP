@@ -163,7 +163,11 @@ Environment Variables:
                 async def __call__(self, scope, receive, send):  # type: ignore[no-untyped-def]
                     if scope["type"] == "http":
                         path = scope.get("path", "")
-                        if path == "/health" or path.startswith("/.well-known/"):
+                        if (
+                            path == "/health"
+                            or path.startswith("/.well-known/")
+                            or path.startswith("/mcp")
+                        ):
                             await self.app(scope, receive, send)
                             return
                         headers = dict(scope.get("headers", []))
