@@ -25,93 +25,24 @@ Generate AI videos directly from Claude, VS Code, or any MCP-compatible client.
 
 ## Quick Start
 
-### 1. Get API Token
+### 1. Get Your API Token
 
-Get your API token from [AceDataCloud Platform](https://platform.acedata.cloud):
+1. Sign up at [AceDataCloud Platform](https://platform.acedata.cloud)
+2. Go to the [API documentation page](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8)
+3. Click **"Acquire"** to get your API token
+4. Copy the token for use below
 
-1. Sign up or log in
-2. Navigate to [Seedance Videos API](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8)
-3. Click "Acquire" to get your token
+### 2. Use the Hosted Server (Recommended)
 
-### 2. Install
+AceDataCloud hosts a managed MCP server — **no local installation required**.
 
-```bash
-# Clone the repository
-git clone https://github.com/AceDataCloud/MCPSeedance.git
-cd MCPSeedance
+**Endpoint:** `https://seedance.mcp.acedata.cloud/mcp`
 
-# Install with pip
-pip install -e .
+All requests require a Bearer token. Use the API token from Step 1.
 
-# Or with uv (recommended)
-uv pip install -e .
-```
+#### Claude Desktop
 
-### 3. Configure
-
-```bash
-# Copy example environment file
-cp .env.example .env
-
-# Edit with your API token
-echo "ACEDATACLOUD_API_TOKEN=your_token_here" > .env
-```
-
-### 4. Run
-
-```bash
-# Run the server
-mcp-seedance
-
-# Or with Python directly
-python main.py
-```
-
-## Claude Desktop Integration
-
-Add to your Claude Desktop configuration:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "seedance": {
-      "command": "mcp-seedance",
-      "env": {
-        "ACEDATACLOUD_API_TOKEN": "your_api_token_here"
-      }
-    }
-  }
-}
-```
-
-Or if using uv:
-
-```json
-{
-  "mcpServers": {
-    "seedance": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/mcp-seedance", "mcp-seedance"],
-      "env": {
-        "ACEDATACLOUD_API_TOKEN": "your_api_token_here"
-      }
-    }
-  }
-}
-```
-
-## Remote HTTP Mode (Hosted)
-
-AceDataCloud hosts a managed MCP server that you can connect to directly — **no local installation required**.
-
-**Endpoint**: `https://seedance.mcp.acedata.cloud/mcp`
-
-All requests require a Bearer token in the `Authorization` header. Get your token from [AceDataCloud Platform](https://platform.acedata.cloud).
-
-### Claude Desktop (Remote)
+Add to your config (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
 
 ```json
 {
@@ -120,28 +51,56 @@ All requests require a Bearer token in the `Authorization` header. Get your toke
       "type": "streamable-http",
       "url": "https://seedance.mcp.acedata.cloud/mcp",
       "headers": {
-        "Authorization": "Bearer your_api_token_here"
+        "Authorization": "Bearer YOUR_API_TOKEN"
       }
     }
   }
 }
 ```
 
-### Cursor / VS Code
+#### Cursor / Windsurf
 
-In your MCP client settings, add:
+Add to your MCP config (`.cursor/mcp.json` or `.windsurf/mcp.json`):
 
-- **Type**: `streamable-http`
-- **URL**: `https://seedance.mcp.acedata.cloud/mcp`
-- **Headers**: `Authorization: Bearer your_api_token_here`
+```json
+{
+  "mcpServers": {
+    "seedance": {
+      "type": "streamable-http",
+      "url": "https://seedance.mcp.acedata.cloud/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
 
-### JetBrains IDEs
+#### VS Code (Copilot)
 
-Install the [Seedance MCP plugin](https://plugins.jetbrains.com/plugin/com.acedatacloud.mcp.seedance) from the JetBrains Marketplace, or configure manually:
+Add to your VS Code MCP config (`.vscode/mcp.json`):
+
+```json
+{
+  "servers": {
+    "seedance": {
+      "type": "streamable-http",
+      "url": "https://seedance.mcp.acedata.cloud/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
+
+Or install the [Ace Data Cloud MCP extension](https://marketplace.visualstudio.com/items?itemName=acedatacloud.acedatacloud-mcp) for VS Code, which bundles all 11 MCP servers with one-click setup.
+
+#### JetBrains IDEs
 
 1. Go to **Settings → Tools → AI Assistant → Model Context Protocol (MCP)**
-2. Click **Add** and select **HTTP**
-3. Paste this configuration:
+2. Click **Add** → **HTTP**
+3. Paste:
 
 ```json
 {
@@ -149,35 +108,71 @@ Install the [Seedance MCP plugin](https://plugins.jetbrains.com/plugin/com.aceda
     "seedance": {
       "url": "https://seedance.mcp.acedata.cloud/mcp",
       "headers": {
-        "Authorization": "Bearer your_api_token_here"
+        "Authorization": "Bearer YOUR_API_TOKEN"
       }
     }
   }
 }
 ```
 
-### cURL Test
+#### cURL Test
 
 ```bash
 # Health check (no auth required)
 curl https://seedance.mcp.acedata.cloud/health
 
-# MCP initialize (requires Bearer token)
+# MCP initialize
 curl -X POST https://seedance.mcp.acedata.cloud/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
-  -H "Authorization: Bearer your_api_token_here" \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}'
 ```
 
-### Self-Hosting with Docker
+### 3. Or Run Locally (Alternative)
+
+If you prefer to run the server on your own machine:
+
+```bash
+# Install from PyPI
+pip install mcp-seedance
+# or
+uvx mcp-seedance
+
+# Set your API token
+export ACEDATACLOUD_API_TOKEN="your_token_here"
+
+# Run (stdio mode for Claude Desktop / local clients)
+mcp-seedance
+
+# Run (HTTP mode for remote access)
+mcp-seedance --transport http --port 8000
+```
+
+#### Claude Desktop (Local)
+
+```json
+{
+  "mcpServers": {
+    "seedance": {
+      "command": "uvx",
+      "args": ["mcp-seedance"],
+      "env": {
+        "ACEDATACLOUD_API_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
+```
+
+#### Docker (Self-Hosting)
 
 ```bash
 docker pull ghcr.io/acedatacloud/mcp-seedance:latest
 docker run -p 8000:8000 ghcr.io/acedatacloud/mcp-seedance:latest
 ```
 
-Clients connect with their own Bearer token — the server extracts the token from each request's `Authorization` header and uses it for upstream API calls.
+Clients connect with their own Bearer token — the server extracts the token from each request's `Authorization` header.
 
 ## Available Tools
 
