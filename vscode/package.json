@@ -1,0 +1,48 @@
+{
+  "name": "mcp-seedance",
+  "displayName": "Seedance MCP",
+  "description": "AI Video Generation with ByteDance Seedance - Generate videos from text and images via Ace Data Cloud API",
+  "version": "0.1.0",
+  "publisher": "acedatacloud",
+  "icon": "icon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "keywords": [
+    "mcp",
+    "model context protocol",
+    "ai",
+    "copilot",
+    "ace data cloud",
+    "seedance",
+    "video generation",
+    "bytedance",
+    "ai video"
+  ],
+  "homepage": "https://github.com/AceDataCloud/MCPSeedance",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AceDataCloud/MCPSeedance"
+  },
+  "bugs": {
+    "url": "https://github.com/AceDataCloud/MCPSeedance/issues"
+  },
+  "contributes": {
+    "mcpServers": {
+      "seedance": {
+        "command": "uvx",
+        "args": [
+          "mcp-seedance"
+        ],
+        "env": {
+          "ACEDATACLOUD_API_TOKEN": ""
+        }
+      }
+    }
+  }
+}
