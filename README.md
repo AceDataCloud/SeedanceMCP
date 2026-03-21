@@ -36,9 +36,18 @@ Generate AI videos directly from Claude, VS Code, or any MCP-compatible client.
 
 AceDataCloud hosts a managed MCP server — **no local installation required**.
 
-**Endpoint:** `https://seedance.mcp.acedata.cloud/mcp`
+**Endpoint:** `https://seedance.mcp.acedata.cloud/mc`
 
 All requests require a Bearer token. Use the API token from Step 1.
+
+#### Claude.ai
+
+Connect directly on [Claude.ai](https://claude.ai) with OAuth — **no API token needed**:
+
+1. Go to Claude.ai **Settings → Integrations → Add More**
+2. Enter the server URL: `https://seedance.mcp.acedata.cloud/mc`
+3. Complete the OAuth login flow
+4. Start using the tools in your conversation
 
 #### Claude Desktop
 
@@ -49,7 +58,7 @@ Add to your config (`~/Library/Application Support/Claude/claude_desktop_config.
   "mcpServers": {
     "seedance": {
       "type": "streamable-http",
-      "url": "https://seedance.mcp.acedata.cloud/mcp",
+      "url": "https://seedance.mcp.acedata.cloud/mc",
       "headers": {
         "Authorization": "Bearer YOUR_API_TOKEN"
       }
@@ -67,7 +76,7 @@ Add to your MCP config (`.cursor/mcp.json` or `.windsurf/mcp.json`):
   "mcpServers": {
     "seedance": {
       "type": "streamable-http",
-      "url": "https://seedance.mcp.acedata.cloud/mcp",
+      "url": "https://seedance.mcp.acedata.cloud/mc",
       "headers": {
         "Authorization": "Bearer YOUR_API_TOKEN"
       }
@@ -85,7 +94,7 @@ Add to your VS Code MCP config (`.vscode/mcp.json`):
   "servers": {
     "seedance": {
       "type": "streamable-http",
-      "url": "https://seedance.mcp.acedata.cloud/mcp",
+      "url": "https://seedance.mcp.acedata.cloud/mc",
       "headers": {
         "Authorization": "Bearer YOUR_API_TOKEN"
       }
@@ -106,7 +115,7 @@ Or install the [Ace Data Cloud MCP extension](https://marketplace.visualstudio.c
 {
   "mcpServers": {
     "seedance": {
-      "url": "https://seedance.mcp.acedata.cloud/mcp",
+      "url": "https://seedance.mcp.acedata.cloud/mc",
       "headers": {
         "Authorization": "Bearer YOUR_API_TOKEN"
       }
@@ -122,7 +131,7 @@ Or install the [Ace Data Cloud MCP extension](https://marketplace.visualstudio.c
 curl https://seedance.mcp.acedata.cloud/health
 
 # MCP initialize
-curl -X POST https://seedance.mcp.acedata.cloud/mcp \
+curl -X POST https://seedance.mcp.acedata.cloud/mc \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer YOUR_API_TOKEN" \
@@ -257,6 +266,8 @@ Claude: I'll generate a video with synchronized audio.
 | ----------------------------- | --------------------------- | -------------------------------- |
 | `ACEDATACLOUD_API_TOKEN`      | API token from AceDataCloud | **Required**                     |
 | `ACEDATACLOUD_API_BASE_URL`   | API base URL                | `https://api.acedata.cloud`      |
+| `ACEDATACLOUD_OAUTH_CLIENT_ID`  | OAuth client ID (hosted mode) | —                           |
+| `ACEDATACLOUD_PLATFORM_BASE_URL` | Platform base URL            | `https://platform.acedata.cloud` |
 | `SEEDANCE_DEFAULT_MODEL`      | Default model               | `doubao-seedance-1-0-pro-250528` |
 | `SEEDANCE_DEFAULT_RESOLUTION` | Default resolution          | `720p`                           |
 | `SEEDANCE_DEFAULT_RATIO`      | Default aspect ratio        | `16:9`                           |

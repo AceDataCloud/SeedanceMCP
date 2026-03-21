@@ -148,13 +148,16 @@ Environment Variables:
             import uvicorn
             from starlette.applications import Starlette
             from starlette.requests import Request
-            from starlette.responses import JSONResponse
+            from starlette.responses import JSONResponse, RedirectResponse
             from starlette.routing import Mount, Route
 
             from core.server import oauth_provider
 
             async def health(_request: Request) -> JSONResponse:
                 return JSONResponse({"status": "ok"})
+
+            async def favicon(_request: Request) -> RedirectResponse:
+                return RedirectResponse("https://cdn.acedata.cloud/9q90dl.png", status_code=301)
 
             async def server_card(_request: Request) -> JSONResponse:
                 """MCP Server Card for Smithery and other registries."""
@@ -214,11 +217,12 @@ Environment Variables:
 
             mcp.settings.stateless_http = True
             mcp.settings.json_response = True
-            mcp.settings.streamable_http_path = "/mcp"
+            mcp.settings.streamable_http_path = "/mc"
 
             # Build routes
             routes: list[Route | Mount] = [
                 Route("/health", health),
+                Route("/favicon.ico", favicon),
                 Route("/.well-known/mcp/server-card.json", server_card),
             ]
 
