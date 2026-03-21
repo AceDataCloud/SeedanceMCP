@@ -31,6 +31,8 @@ spec:
           env:
             - name: MCP_SERVER_URL
               value: "https://seedance.mcp.acedata.cloud"
+            - name: ACEDATACLOUD_OAUTH_CLIENT_ID
+              value: "MvO3Wyw027hQRRTdbO4jaK6n9-6a1QFFjTGN7tHFHRs"
           resources:
             limits:
               cpu: 500m
