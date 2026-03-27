@@ -62,13 +62,26 @@ async def seedance_generate_video(
         ),
     ] = DEFAULT_RATIO,
     duration: Annotated[
-        int,
+        int | None,
         Field(
-            description="Video duration in seconds. Range: 2-12. Default is 5.",
+            description=(
+                "Video duration in seconds. Range: 2-12. Default is 5. "
+                "Mutually exclusive with 'frames'."
+            ),
             ge=2,
             le=12,
         ),
-    ] = DEFAULT_DURATION,
+    ] = None,
+    frames: Annotated[
+        int | None,
+        Field(
+            description=(
+                "Frame count for the generated video. "
+                "Must satisfy 25+4n (e.g. 29, 33, 37, ..., 289). "
+                "Mutually exclusive with 'duration'."
+            ),
+        ),
+    ] = None,
     generate_audio: Annotated[
         bool,
         Field(
@@ -127,6 +140,14 @@ async def seedance_generate_video(
             )
         ),
     ] = None,
+    execution_expires_after: Annotated[
+        int,
+        Field(
+            description=(
+                "Task timeout threshold in seconds. Default is 172800 (48 hours)."
+            ),
+        ),
+    ] = 172800,
 ) -> str:
     """Generate AI video from a text prompt using ByteDance Seedance.
 
@@ -144,17 +165,25 @@ async def seedance_generate_video(
     Returns:
         Task ID and generated video information including URLs and metadata.
     """
+    if frames is not None and duration is not None:
+        return "Error: 'frames' and 'duration' are mutually exclusive. Provide only one."
+
     payload: dict[str, Any] = {
         "model": model,
         "content": [{"type": "text", "text": prompt}],
         "resolution": resolution,
         "ratio": ratio,
-        "duration": duration,
         "service_tier": service_tier,
         "camerafixed": camera_fixed,
         "watermark": watermark,
         "return_last_frame": return_last_frame,
+        "execution_expires_after": execution_expires_after,
     }
+
+    if frames is not None:
+        payload["frames"] = frames
+    else:
+        payload["duration"] = duration if duration is not None else DEFAULT_DURATION
 
     if seed != -1:
         payload["seed"] = seed
@@ -230,13 +259,26 @@ async def seedance_generate_video_from_image(
         Field(description=("Video aspect ratio. Use 'adaptive' to match your input image ratio.")),
     ] = DEFAULT_RATIO,
     duration: Annotated[
-        int,
+        int | None,
         Field(
-            description="Video duration in seconds. Range: 2-12. Default is 5.",
+            description=(
+                "Video duration in seconds. Range: 2-12. Default is 5. "
+                "Mutually exclusive with 'frames'."
+            ),
             ge=2,
             le=12,
         ),
-    ] = DEFAULT_DURATION,
+    ] = None,
+    frames: Annotated[
+        int | None,
+        Field(
+            description=(
+                "Frame count for the generated video. "
+                "Must satisfy 25+4n (e.g. 29, 33, 37, ..., 289). "
+                "Mutually exclusive with 'duration'."
+            ),
+        ),
+    ] = None,
     generate_audio: Annotated[
         bool,
         Field(
@@ -269,6 +311,14 @@ async def seedance_generate_video_from_image(
         str | None,
         Field(description="Webhook callback URL for asynchronous notifications."),
     ] = None,
+    execution_expires_after: Annotated[
+        int,
+        Field(
+            description=(
+                "Task timeout threshold in seconds. Default is 172800 (48 hours)."
+            ),
+        ),
+    ] = 172800,
 ) -> str:
     """Generate AI video using reference images with ByteDance Seedance.
 
@@ -297,6 +347,9 @@ async def seedance_generate_video_from_image(
         return (
             "Error: reference_image_urls cannot be combined with first_frame_url or last_frame_url."
         )
+
+    if frames is not None and duration is not None:
+        return "Error: 'frames' and 'duration' are mutually exclusive. Provide only one."
 
     # Build content array
     content: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
@@ -333,10 +386,15 @@ async def seedance_generate_video_from_image(
         "content": content,
         "resolution": resolution,
         "ratio": ratio,
-        "duration": duration,
         "service_tier": service_tier,
         "return_last_frame": return_last_frame,
+        "execution_expires_after": execution_expires_after,
     }
+
+    if frames is not None:
+        payload["frames"] = frames
+    else:
+        payload["duration"] = duration if duration is not None else DEFAULT_DURATION
 
     if seed != -1:
         payload["seed"] = seed
