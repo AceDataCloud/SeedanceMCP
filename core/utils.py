@@ -1,4 +1,4 @@
-"""Utility functions for MCP Seedance server."""
+"""Utility functions for Seedance MCP server."""
 
 import json
 from typing import Any

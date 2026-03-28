@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MCP Seedance Server - AI Video Generation via AceDataCloud API.
+Seedance MCP Server - AI Video Generation via AceDataCloud API.
 
 A Model Context Protocol (MCP) server that provides tools for generating
 AI videos using ByteDance Seedance through the AceDataCloud platform.
@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 def safe_print(text: str) -> None:
     """Print to stderr safely, handling encoding issues."""
     if not sys.stderr.isatty():
-        logger.debug(f"[MCP Seedance] {text}")
+        logger.debug(f"[Seedance MCP] {text}")
         return
 
     try:
@@ -48,9 +48,9 @@ def get_version() -> str:
 
 
 def main() -> None:
-    """Run the MCP Seedance server."""
+    """Run the Seedance MCP server."""
     parser = argparse.ArgumentParser(
-        description="MCP Seedance Server - AI Video Generation",
+        description="Seedance MCP Server - AI Video Generation",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -90,7 +90,7 @@ Environment Variables:
     # Print startup banner
     safe_print("")
     safe_print("=" * 50)
-    safe_print("  MCP Seedance Server - AI Video Generation")
+    safe_print("  Seedance MCP Server - AI Video Generation")
     safe_print("=" * 50)
     safe_print("")
     safe_print(f"  Version:      {get_version()}")
@@ -163,7 +163,7 @@ Environment Variables:
                 """MCP Server Card for Smithery and other registries."""
                 return JSONResponse(
                     {
-                        "serverInfo": {"name": "MCP Seedance"},
+                        "serverInfo": {"name": "Seedance MCP"},
                         "authentication": {"required": True, "schemes": ["bearer"]},
                         "tools": [
                             {

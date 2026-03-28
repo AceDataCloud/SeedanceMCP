@@ -1,1 +1,1 @@
-"""Tests package for MCP Seedance server."""
+"""Tests package for Seedance MCP server."""

@@ -1,4 +1,4 @@
-"""Configuration management for MCP Seedance server."""
+"""Configuration management for Seedance MCP server."""
 
 import os
 from dataclasses import dataclass, field

@@ -1,4 +1,4 @@
-"""Custom exceptions for MCP Seedance server."""
+"""Custom exceptions for Seedance MCP server."""
 
 
 class SeedanceError(Exception):

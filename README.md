@@ -1,4 +1,4 @@
-# MCP Seedance
+# Seedance MCP
 
 <!-- mcp-name: io.github.AceDataCloud/mcp-seedance -->
 
