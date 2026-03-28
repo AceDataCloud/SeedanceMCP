@@ -404,8 +404,8 @@ Options:
 
 ```bash
 # Clone repository
-git clone https://github.com/AceDataCloud/MCPSeedance.git
-cd MCPSeedance
+git clone https://github.com/AceDataCloud/SeedanceMCP.git
+cd SeedanceMCP
 
 # Create virtual environment
 python -m venv .venv
@@ -457,7 +457,7 @@ twine upload dist/*
 ## Project Structure
 
 ```
-MCPSeedance/
+SeedanceMCP/
 ├── core/                   # Core modules
 │   ├── __init__.py
 │   ├── client.py          # HTTP client for Seedance API

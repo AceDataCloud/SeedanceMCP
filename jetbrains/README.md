@@ -58,7 +58,7 @@ Connects to the hosted MCP server at `seedance.mcp.acedata.cloud`. No local inst
 - [Ace Data Cloud Platform](https://platform.acedata.cloud)
 - [API Documentation](https://docs.acedata.cloud)
 - [PyPI Package](https://pypi.org/project/mcp-seedance/)
-- [Source Code](https://github.com/AceDataCloud/MCPSeedance)
+- [Source Code](https://github.com/AceDataCloud/SeedanceMCP)
 
 ## License
 

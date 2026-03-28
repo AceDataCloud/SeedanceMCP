@@ -4,7 +4,7 @@
   "description": "MCP server for ByteDance Seedance AI video generation",
   "version": "2026.3.19.7",
   "repository": {
-    "url": "https://github.com/AceDataCloud/MCPSeedance",
+    "url": "https://github.com/AceDataCloud/SeedanceMCP",
     "source": "github"
   },
   "packages": [

@@ -1,4 +1,4 @@
-# Copilot Instructions for MCPSeedance
+# Copilot Instructions for SeedanceMCP
 
 ## Sync from Docs
 

@@ -24,13 +24,13 @@
     "bytedance",
     "ai video"
   ],
-  "homepage": "https://github.com/AceDataCloud/MCPSeedance",
+  "homepage": "https://github.com/AceDataCloud/SeedanceMCP",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AceDataCloud/MCPSeedance"
+    "url": "https://github.com/AceDataCloud/SeedanceMCP"
   },
   "bugs": {
-    "url": "https://github.com/AceDataCloud/MCPSeedance/issues"
+    "url": "https://github.com/AceDataCloud/SeedanceMCP/issues"
   },
   "contributes": {
     "mcpServers": {

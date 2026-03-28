@@ -67,11 +67,11 @@ all = [
 mcp-seedance = "main:main"
 
 [project.urls]
-Homepage = "https://github.com/AceDataCloud/MCPSeedance"
+Homepage = "https://github.com/AceDataCloud/SeedanceMCP"
 Documentation = "https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8"
-Repository = "https://github.com/AceDataCloud/MCPSeedance"
-Issues = "https://github.com/AceDataCloud/MCPSeedance/issues"
-Changelog = "https://github.com/AceDataCloud/MCPSeedance/blob/main/CHANGELOG.md"
+Repository = "https://github.com/AceDataCloud/SeedanceMCP"
+Issues = "https://github.com/AceDataCloud/SeedanceMCP/issues"
+Changelog = "https://github.com/AceDataCloud/SeedanceMCP/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["hatchling>=1.21.0,<1.30.0"]
