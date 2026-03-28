@@ -345,18 +345,18 @@ Claude: I'll create a video from your image.
 User: Create a video of rain falling with sound
 
 Claude: I'll generate a video with synchronized audio.
-[Calls seedance_generate_video with prompt="Rain falling on a quiet street" and generate_audio=True, model="doubao-seedance-1-5-pro-250528"]
+[Calls seedance_generate_video with prompt="Rain falling on a quiet street" and generate_audio=True, model="doubao-seedance-1-5-pro-251215"]
 ```
 
 ## Available Models
 
 | Model                                 | Description       | Features                   |
 | ------------------------------------- | ----------------- | -------------------------- |
-| `doubao-seedance-1-5-pro-250528`      | 1.5 Pro           | Audio generation, T2V, I2V |
+| `doubao-seedance-1-5-pro-251215`      | 1.5 Pro           | Audio generation, T2V, I2V |
 | `doubao-seedance-1-0-pro-250528`      | 1.0 Pro (default) | High quality T2V, I2V      |
-| `doubao-seedance-1-0-pro-fast-250528` | 1.0 Pro Fast      | Faster generation          |
-| `doubao-seedance-1-0-lite-t2v-250528` | 1.0 Lite T2V      | Lightweight text-to-video  |
-| `doubao-seedance-1-0-lite-i2v-250528` | 1.0 Lite I2V      | Lightweight image-to-video |
+| `doubao-seedance-1-0-pro-fast-251015` | 1.0 Pro Fast      | Faster generation          |
+| `doubao-seedance-1-0-lite-t2v-250428` | 1.0 Lite T2V      | Lightweight text-to-video  |
+| `doubao-seedance-1-0-lite-i2v-250428` | 1.0 Lite I2V      | Lightweight image-to-video |
 
 ## Available Aspect Ratios
 
