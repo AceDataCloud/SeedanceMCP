@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of MCP Seedance Server
+- Initial release of Seedance MCP Server
 - Video generation tools:
   - `seedance_generate_video` - Generate video from text prompts (T2V)
   - `seedance_generate_video_from_image` - Generate video using reference images (I2V)

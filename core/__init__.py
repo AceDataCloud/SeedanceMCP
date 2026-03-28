@@ -1,4 +1,4 @@
-"""Core module for MCP Seedance server."""
+"""Core module for Seedance MCP server."""
 
 from core.client import SeedanceClient
 from core.config import settings

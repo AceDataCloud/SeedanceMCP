@@ -1,4 +1,4 @@
-"""Tools module for MCP Seedance server."""
+"""Tools module for Seedance MCP server."""
 
 # Import all tools to register them with the MCP server
 from tools import info_tools, task_tools, video_tools
