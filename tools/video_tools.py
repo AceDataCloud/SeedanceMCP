@@ -143,9 +143,7 @@ async def seedance_generate_video(
     execution_expires_after: Annotated[
         int,
         Field(
-            description=(
-                "Task timeout threshold in seconds. Default is 172800 (48 hours)."
-            ),
+            description=("Task timeout threshold in seconds. Default is 172800 (48 hours)."),
         ),
     ] = 172800,
 ) -> str:
@@ -314,9 +312,7 @@ async def seedance_generate_video_from_image(
     execution_expires_after: Annotated[
         int,
         Field(
-            description=(
-                "Task timeout threshold in seconds. Default is 172800 (48 hours)."
-            ),
+            description=("Task timeout threshold in seconds. Default is 172800 (48 hours)."),
         ),
     ] = 172800,
 ) -> str:

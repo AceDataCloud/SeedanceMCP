@@ -45,9 +45,7 @@ class TestSeedanceGenerateVideo:
             assert "duration" not in call_kwargs
 
     @pytest.mark.asyncio
-    async def test_duration_used_when_frames_not_provided(
-        self, mock_video_response: dict
-    ) -> None:
+    async def test_duration_used_when_frames_not_provided(self, mock_video_response: dict) -> None:
         """Test that duration is used when frames is not provided."""
         with patch("tools.video_tools.client") as mock_client:
             mock_client.generate_video = AsyncMock(return_value=mock_video_response)
