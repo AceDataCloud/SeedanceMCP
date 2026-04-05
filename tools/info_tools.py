@@ -13,6 +13,7 @@ async def seedance_list_models() -> str:
     Returns:
         Table of all models with descriptions, capabilities, and pricing.
     """
+    # Last updated: 2026-04-05
     return """Available Seedance Models:
 
 | Model | Type | Strengths | Audio | Cost (720p/sec) |
@@ -46,6 +47,7 @@ async def seedance_list_resolutions() -> str:
     Returns:
         Tables of resolutions and aspect ratios with descriptions.
     """
+    # Last updated: 2026-04-05
     return """Available Seedance Resolutions:
 
 | Resolution | Description | Best For |
@@ -83,6 +85,7 @@ async def seedance_list_actions() -> str:
     Returns:
         Categorized list of all actions and their corresponding tools.
     """
+    # Last updated: 2026-04-05
     return """Available Seedance Actions and Tools:
 
 Video Generation:

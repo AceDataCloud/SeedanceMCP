@@ -23,6 +23,18 @@ Generate AI videos directly from Claude, VS Code, or any MCP-compatible client.
 - **Service Tiers** - Default (priority) and Flex (cost-effective) processing
 - **Task Tracking** - Monitor generation progress and retrieve results
 
+## Tool Reference
+
+| Tool | Description |
+|------|-------------|
+| `seedance_generate_video` | Generate AI video from a text prompt using ByteDance Seedance. |
+| `seedance_generate_video_from_image` | Generate AI video using reference images with ByteDance Seedance. |
+| `seedance_get_task` | Query the status and result of a video generation task. |
+| `seedance_get_tasks_batch` | Query multiple video generation tasks at once. |
+| `seedance_list_models` | List all available Seedance models with their capabilities and pricing. |
+| `seedance_list_resolutions` | List all available resolutions and aspect ratios for Seedance. |
+| `seedance_list_actions` | List all available Seedance API actions and corresponding tools. |
+
 ## Quick Start
 
 ### 1. Get Your API Token

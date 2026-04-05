@@ -1,6 +1,6 @@
 [project]
 name = "mcp-seedance"
-version = "0.1.0"
+version = "2026.4.5.0"
 description = "MCP Server for ByteDance Seedance AI Video Generation via AceDataCloud API"
 readme = "README.md"
 license = { text = "MIT" }
