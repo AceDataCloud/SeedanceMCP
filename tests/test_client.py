@@ -83,9 +83,11 @@ class TestSeedanceClient:
         """Test 401 response raises auth error."""
         mock_response = MagicMock()
         mock_response.status_code = 401
-        mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
-            "Unauthorized", request=MagicMock(), response=mock_response
-        )
+        mock_response.json.return_value = {
+            "error": {"code": "unauthorized", "message": "Invalid API token"}
+        }
+        mock_response.headers = {"content-type": "application/json"}
+        mock_response.text = "Invalid API token"
 
         with patch("httpx.AsyncClient") as mock_http:
             mock_instance = AsyncMock()
@@ -111,17 +113,18 @@ class TestSeedanceClient:
         """Test HTTP error raises API error."""
         mock_response = MagicMock()
         mock_response.status_code = 500
+        mock_response.json.return_value = {
+            "error": {"code": "internal_error", "message": "Internal Server Error"}
+        }
+        mock_response.headers = {"content-type": "application/json"}
         mock_response.text = "Internal Server Error"
-        mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
-            "Error", request=MagicMock(), response=mock_response
-        )
 
         with patch("httpx.AsyncClient") as mock_http:
             mock_instance = AsyncMock()
             mock_instance.post.return_value = mock_response
             mock_http.return_value.__aenter__.return_value = mock_instance
 
-            with pytest.raises(SeedanceAPIError) as exc_info:
+            with pytest.raises(SeedanceAPIError, match="Internal Server Error") as exc_info:
                 await test_client.request("/seedance/videos", {})
 
             assert exc_info.value.status_code == 500
