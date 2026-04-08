@@ -26,7 +26,7 @@
       ]
     }
   ],
-  "websiteUrl": "https://platform.acedata.cloud",
+  "websiteUrl": "https://seedance.mcp.acedata.cloud",
   "remotes": [
     {
       "type": "streamable-http",
