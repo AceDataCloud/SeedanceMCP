@@ -16,7 +16,16 @@ def _with_submission_guidance(
         "task_id": task_id,
         "poll_tool": poll_tool,
         "batch_poll_tool": batch_poll_tool,
-        "next_step": f'Call {poll_tool}(task_id="{task_id}") to poll until the task completes and the final media URLs are available.',
+        "polling_interval_seconds": 15,
+        "max_poll_attempts": 20,
+        "expected_wait_seconds": 300,
+        "next_step": (
+            f'Call {poll_tool}(task_id="{task_id}") to poll until the task completes '
+            f"and the final media URLs are available. "
+            f"IMPORTANT: Media generation typically takes 1-5 minutes. "
+            f"Wait at least 15 seconds between each poll. "
+            f"Keep polling for up to 20 attempts. Do NOT stop early — the task is still running."
+        ),
     }
     return payload
 
@@ -33,7 +42,15 @@ def _with_task_guidance(
         "task_id": task_id,
         "poll_tool": poll_tool,
         "batch_poll_tool": batch_poll_tool,
-        "next_step": f'If the task is still pending or processing, call {poll_tool}(task_id="{task_id}") again later.',
+        "polling_interval_seconds": 15,
+        "max_poll_attempts": 20,
+        "next_step": (
+            f"The task is still pending or processing. "
+            f'Wait 15 seconds, then call {poll_tool}(task_id="{task_id}") again. '
+            f"IMPORTANT: Media generation typically takes 1-5 minutes. "
+            f"Keep polling — do NOT give up or tell the user it failed. "
+            f"You should poll at least 20 times before considering the task stuck."
+        ),
     }
     return payload
 
