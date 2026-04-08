@@ -1,5 +1,6 @@
 """Task query tools for Seedance API."""
 
+import asyncio
 from typing import Annotated
 
 from pydantic import Field
@@ -44,6 +45,12 @@ async def seedance_get_task(
         id=task_id,
         action="retrieve",
     )
+    # Throttle polling: sleep 5s for incomplete tasks so LLM clients
+    # don't burn through poll attempts in seconds.
+    response = result.get("response", {})
+    is_complete = response.get("success", False)
+    if not is_complete:
+        await asyncio.sleep(5)
     return format_task_result(result)
 
 
