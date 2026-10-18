@@ -152,10 +152,20 @@ Environment Variables:
             from starlette.responses import JSONResponse, RedirectResponse
             from starlette.routing import BaseRoute, Mount, Route
 
+            from core.http_health import OAuthReadinessProbe
             from core.server import oauth_provider
+
+            readiness = OAuthReadinessProbe()
 
             async def health(_request: Request) -> JSONResponse:
                 return JSONResponse({"status": "ok"})
+
+            async def ready(_request: Request) -> JSONResponse:
+                available = await readiness.ready()
+                return JSONResponse(
+                    {"status": "ready" if available else "unavailable"},
+                    status_code=200 if available else 503,
+                )
 
             async def favicon(_request: Request) -> RedirectResponse:
                 return RedirectResponse("https://cdn.acedata.cloud/9q90dl.png", status_code=301)
@@ -187,8 +197,11 @@ Environment Variables:
 
             @contextlib.asynccontextmanager
             async def lifespan(_app: Starlette):  # type: ignore[no-untyped-def]
-                async with mcp.session_manager.run():
-                    yield
+                try:
+                    async with mcp.session_manager.run():
+                        yield
+                finally:
+                    await readiness.close()
 
             mcp.settings.stateless_http = True
             mcp.settings.json_response = True
@@ -197,6 +210,7 @@ Environment Variables:
             # Build routes
             routes: list[BaseRoute] = [
                 Route("/health", health),
+                Route("/ready", ready),
                 Route("/favicon.ico", favicon),
                 Route("/.well-known/mcp/server-card.json", server_card),
             ]
