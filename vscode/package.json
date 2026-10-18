@@ -1,7 +1,7 @@
 {
   "name": "mcp-seedance",
-  "displayName": "Seedance MCP",
-  "description": "ByteDance Seedance — dance and motion video generation from text or image.",
+  "displayName": "Seedance by Ace Data Cloud",
+  "description": "Seedance video generation by Ace Data Cloud — text, image and existing task results in VS Code Chat.",
   "version": "0.3.0",
   "publisher": "acedatacloud",
   "icon": "icon.png",
@@ -43,18 +43,18 @@
     "mcpServerDefinitionProviders": [
       {
         "id": "acedatacloud.seedance",
-        "label": "Seedance MCP"
+        "label": "Seedance by Ace Data Cloud"
       }
     ],
     "commands": [
       {
         "command": "acedatacloud.seedance.setApiToken",
-        "title": "Seedance MCP: Set Ace Data Cloud API Key",
+        "title": "Seedance by Ace Data Cloud: Set Ace Data Cloud API Key",
         "category": "MCP"
       },
       {
         "command": "acedatacloud.seedance.clearApiToken",
-        "title": "Seedance MCP: Clear Ace Data Cloud API Key",
+        "title": "Seedance by Ace Data Cloud: Clear Ace Data Cloud API Key",
         "category": "MCP"
       }
     ]
