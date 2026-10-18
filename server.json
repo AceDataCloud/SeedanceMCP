@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.AceDataCloud/mcp-seedance",
-  "description": "MCP server for ByteDance Seedance AI video generation",
+  "description": "Generate Seedance videos with Ace Data Cloud; retrieve the original task for finished video.",
   "version": "2026.3.19.7",
   "repository": {
     "url": "https://github.com/AceDataCloud/SeedanceMCP",
@@ -26,11 +26,18 @@
       ]
     }
   ],
-  "websiteUrl": "https://seedance.mcp.acedata.cloud",
+  "websiteUrl": "https://platform.acedata.cloud/documents/seedance-mcp?utm_source=mcp_registry&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_mcp_listing_guide",
   "remotes": [
     {
       "type": "streamable-http",
       "url": "https://seedance.mcp.acedata.cloud/mcp"
+    }
+  ],
+  "title": "Seedance by Ace Data Cloud",
+  "icons": [
+    {
+      "src": "https://cdn.acedata.cloud/9q90dl.png",
+      "mimeType": "image/png"
     }
   ]
 }
