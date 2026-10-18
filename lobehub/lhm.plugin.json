@@ -1,0 +1,817 @@
+{
+  "identifier": "acedatacloud-seedancemcp",
+  "name": "Seedance by Ace Data Cloud",
+  "version": "2026.10.12.1",
+  "author": "Ace Data Cloud",
+  "authorUrl": "https://github.com/AceDataCloud",
+  "homepage": "https://platform.acedata.cloud/documents/seedance-videos?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_lobehub_market_pricing",
+  "description": "Text-to-video and image-to-video generation through Ace Data Cloud. Requires an Ace service API token; generation is billed to your Ace account.",
+  "cloudEndpoint": "https://seedance.mcp.acedata.cloud/mcp",
+  "tags": [
+    "seedance",
+    "video",
+    "image-to-video",
+    "acedatacloud"
+  ],
+  "tools": [
+    {
+      "name": "seedance_list_models",
+      "title": null,
+      "description": "List all available Seedance models with their capabilities and pricing.\n\n    Shows all available model options with their features, strengths, and costs.\n    Use this to understand which model to choose for your video generation.\n\n    Returns:\n        Table of all models with descriptions, capabilities, and pricing.\n    ",
+      "inputSchema": {
+        "properties": {},
+        "title": "seedance_list_modelsArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_list_modelsOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "seedance_list_resolutions",
+      "title": null,
+      "description": "List all available resolutions and aspect ratios for Seedance.\n\n    Shows all available resolution and aspect ratio options with use cases.\n\n    Returns:\n        Tables of resolutions and aspect ratios with descriptions.\n    ",
+      "inputSchema": {
+        "properties": {},
+        "title": "seedance_list_resolutionsArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_list_resolutionsOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "seedance_list_actions",
+      "title": null,
+      "description": "List all available Seedance API actions and corresponding tools.\n\n    Reference guide for what each action does and which tool to use.\n    Helpful for understanding the full capabilities of the Seedance MCP.\n\n    Returns:\n        Categorized list of all actions and their corresponding tools.\n    ",
+      "inputSchema": {
+        "properties": {},
+        "title": "seedance_list_actionsArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_list_actionsOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "seedance_get_task",
+      "title": null,
+      "description": "Query the status and result of a video generation task.\n\n    Use this to check if a generation is complete and retrieve the resulting\n    video URLs, thumbnails, and other metadata.\n\n    Use this when:\n    - You want to check if a generation has completed\n    - You need to retrieve video URLs from a previous generation\n    - You want to get the full details of a generated video\n\n    Task statuses:\n    - 'running': Generation is still in progress\n    - 'succeeded': Generation finished successfully\n    - 'failed': Generation failed (check error message)\n\n    Returns:\n        Task status and generated video information including URLs and metadata.\n    ",
+      "inputSchema": {
+        "properties": {
+          "task_id": {
+            "description": "The task ID returned from a generation request. This is the 'task_id' field from any seedance_generate_* tool response.",
+            "title": "Task Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "task_id"
+        ],
+        "title": "seedance_get_taskArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_get_taskOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "seedance_get_tasks_batch",
+      "title": null,
+      "description": "Query multiple video generation tasks at once.\n\n    Efficiently check the status of multiple tasks in a single request.\n    More efficient than calling seedance_get_task multiple times.\n\n    Use this when:\n    - You have multiple pending generations to check\n    - You want to get status of several videos at once\n    - You're tracking a batch of generations\n\n    Returns:\n        Status and video information for all queried tasks.\n    ",
+      "inputSchema": {
+        "properties": {
+          "task_ids": {
+            "description": "List of task IDs to query. Maximum recommended batch size is 50 tasks.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Task Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "task_ids"
+        ],
+        "title": "seedance_get_tasks_batchArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_get_tasks_batchOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "seedance_generate_video",
+      "title": null,
+      "description": "Generate AI video from a text prompt using ByteDance Seedance.\n\n    This is the simplest way to create video - just describe what you want and\n    Seedance will generate a high-quality AI video.\n\n    Use this when:\n    - You want to create a video from a text description\n    - You don't have reference images\n    - You want quick text-to-video generation\n\n    For using reference images (first/last frame, reference), use\n    seedance_generate_video_from_image instead.\n\n    Returns:\n        Task ID and generated video information including URLs and metadata.\n    ",
+      "inputSchema": {
+        "$defs": {
+          "SeedanceWebSearchTool": {
+            "additionalProperties": false,
+            "description": "Seedance web search tool configuration.",
+            "properties": {
+              "type": {
+                "const": "web_search",
+                "title": "Type",
+                "type": "string"
+              },
+              "limit": {
+                "default": 10,
+                "maximum": 50,
+                "minimum": 1,
+                "title": "Limit",
+                "type": "integer"
+              },
+              "max_keyword": {
+                "anyOf": [
+                  {
+                    "maximum": 50,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Max Keyword"
+              },
+              "sources": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "enum": [
+                        "toutiao",
+                        "douyin",
+                        "moji",
+                        "search_engine"
+                      ],
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sources"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "title": "SeedanceWebSearchTool",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "prompt": {
+            "description": "Description of the video to generate. Max 1000 characters. Be descriptive about the scene, motion, style, and mood. You can also include inline parameters like '--rs 720p --rt 16:9 --dur 5'. Examples: 'A cat walking through a garden with butterflies', 'Cinematic aerial shot of mountains at sunset'",
+            "title": "Prompt",
+            "type": "string"
+          },
+          "model": {
+            "default": "doubao-seedance-2-0-260128",
+            "description": "Model version to use. Options: 'doubao-seedance-2-5-260628' (latest flagship, up to 30 seconds, multimodal reference, edit/extend, default), 'doubao-seedance-2-0-260128' (highest resolution, supports 4k), 'doubao-seedance-2-0-fast-260128' (latest generation, faster, up to 720p), 'doubao-seedance-2-0-mini-260615' (latest generation, lightweight, cheapest within the 2.0 series, up to 720p), 'doubao-seedance-1-5-pro-251215' (1.5 flagship, supports audio), 'doubao-seedance-1-0-pro-250528' (1.0 standard), 'doubao-seedance-1-0-pro-fast-251015' (1.0 fast, cost-optimized), 'doubao-seedance-1-0-lite-t2v-250428' (lightweight text-to-video), 'doubao-seedance-1-0-lite-i2v-250428' (lightweight image-to-video).",
+            "enum": [
+              "doubao-seedance-2-5-260628",
+              "doubao-seedance-2-0-260128",
+              "doubao-seedance-2-0-fast-260128",
+              "doubao-seedance-2-0-mini-260615",
+              "doubao-seedance-1-5-pro-251215",
+              "doubao-seedance-1-0-pro-250528",
+              "doubao-seedance-1-0-pro-fast-251015",
+              "doubao-seedance-1-0-lite-t2v-250428",
+              "doubao-seedance-1-0-lite-i2v-250428"
+            ],
+            "title": "Model",
+            "type": "string"
+          },
+          "resolution": {
+            "default": "720p",
+            "description": "Video resolution. Options: '480p', '720p' (default), '1080p', '4k'. '4k' is supported only by 'doubao-seedance-2-0-260128'; '2-5' maxes out at '1080p'; '2-0-fast' and '2-0-mini' max out at '720p'.",
+            "enum": [
+              "480p",
+              "720p",
+              "1080p",
+              "4k"
+            ],
+            "title": "Resolution",
+            "type": "string"
+          },
+          "ratio": {
+            "default": "16:9",
+            "description": "Video aspect ratio. Options: '16:9' (landscape, default), '9:16' (portrait), '1:1' (square), '4:3', '3:4', '21:9' (ultrawide), 'adaptive'.",
+            "enum": [
+              "16:9",
+              "9:16",
+              "1:1",
+              "4:3",
+              "3:4",
+              "21:9",
+              "adaptive"
+            ],
+            "title": "Ratio",
+            "type": "string"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "maximum": 30,
+                "minimum": -1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Video duration in seconds. 1.0 series: 2–12; 1.5 Pro: 4–12; 2.0 series: 4–15; 2.5: 4–30. Use -1 for auto-duration (1.5 Pro and 2.x). Default is 5. Mutually exclusive with 'frames'.",
+            "title": "Duration"
+          },
+          "frames": {
+            "anyOf": [
+              {
+                "maximum": 289,
+                "minimum": 29,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Frame count for the generated video (1.0 series only). Must satisfy 25+4n (e.g. 29, 33, 37, ..., 289). Mutually exclusive with 'duration'.",
+            "title": "Frames"
+          },
+          "generate_audio": {
+            "default": false,
+            "description": "If true, generate audio along with the video. Supported by 'doubao-seedance-1-5-pro-251215' and the 'doubao-seedance-2-0' series; other models ignore it. Approximately doubles the cost. Default is false.",
+            "title": "Generate Audio",
+            "type": "boolean"
+          },
+          "seed": {
+            "default": -1,
+            "description": "Random seed for reproducible generation. Range: -1 to 4294967295. Use -1 for random. Default is -1.",
+            "maximum": 4294967295,
+            "minimum": -1,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "camera_fixed": {
+            "default": false,
+            "description": "If true, keep the camera fixed during generation. Default is false.",
+            "title": "Camera Fixed",
+            "type": "boolean"
+          },
+          "watermark": {
+            "default": false,
+            "description": "If true, add a watermark to the video. Default is false.",
+            "title": "Watermark",
+            "type": "boolean"
+          },
+          "return_last_frame": {
+            "default": false,
+            "description": "If true, also return the last frame of the generated video as an image URL. Useful for video extension workflows. Default is false.",
+            "title": "Return Last Frame",
+            "type": "boolean"
+          },
+          "output_format": {
+            "anyOf": [
+              {
+                "enum": [
+                  "mp4",
+                  "mov"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Seedance 2.5 output format: mp4 or mov.",
+            "title": "Output Format"
+          },
+          "tools": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/SeedanceWebSearchTool"
+                },
+                "maxItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional Seedance 2.5 web search tool configuration.",
+            "title": "Tools"
+          },
+          "priority": {
+            "default": 0,
+            "description": "Seedance 2.5 task priority from 0 to 9.",
+            "maximum": 9,
+            "minimum": 0,
+            "title": "Priority",
+            "type": "integer"
+          },
+          "safety_identifier": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Stable anonymous end-user identifier. Do not use personal information.",
+            "title": "Safety Identifier"
+          },
+          "callback_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Webhook callback URL for asynchronous notifications. When provided, the API returns immediately with a task_id and calls this URL when the video is generated.",
+            "title": "Callback Url"
+          },
+          "execution_expires_after": {
+            "default": 172800,
+            "description": "Task timeout threshold in seconds. Default is 172800 (48 hours).",
+            "maximum": 259200,
+            "minimum": 3600,
+            "title": "Execution Expires After",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "prompt"
+        ],
+        "title": "seedance_generate_videoArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_generate_videoOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "seedance_generate_video_from_image",
+      "title": null,
+      "description": "Generate AI video using reference images with ByteDance Seedance.\n\n    This allows you to control the video by specifying first frame, last frame,\n    or reference images. Seedance will generate smooth motion based on the inputs.\n\n    Use this when:\n    - You have a specific image you want to animate\n    - You want to create a video transition between two images\n    - You need style guidance from reference images\n    - You need precise control over the video's visual content\n\n    Note: reference_image_urls cannot be combined with first_frame_url/last_frame_url.\n    At least one image input must be provided.\n\n    Returns:\n        Task ID and generated video information including URLs and metadata.\n    ",
+      "inputSchema": {
+        "$defs": {
+          "SeedanceWebSearchTool": {
+            "additionalProperties": false,
+            "description": "Seedance web search tool configuration.",
+            "properties": {
+              "type": {
+                "const": "web_search",
+                "title": "Type",
+                "type": "string"
+              },
+              "limit": {
+                "default": 10,
+                "maximum": 50,
+                "minimum": 1,
+                "title": "Limit",
+                "type": "integer"
+              },
+              "max_keyword": {
+                "anyOf": [
+                  {
+                    "maximum": 50,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Max Keyword"
+              },
+              "sources": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "enum": [
+                        "toutiao",
+                        "douyin",
+                        "moji",
+                        "search_engine"
+                      ],
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sources"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "title": "SeedanceWebSearchTool",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "prompt": {
+            "description": "Description of the video motion and content. Describe what should happen in the video, how objects should move, what transitions to include.",
+            "title": "Prompt",
+            "type": "string"
+          },
+          "first_frame_url": {
+            "default": "",
+            "description": "URL of the image to use as the first frame of the video. The video will animate from this image. Supports https:// URLs or base64 data:image/... URIs.",
+            "title": "First Frame Url",
+            "type": "string"
+          },
+          "last_frame_url": {
+            "default": "",
+            "description": "URL of the image to use as the last frame of the video. The video will animate towards this image. Supports https:// URLs or base64 data:image/... URIs.",
+            "title": "Last Frame Url",
+            "type": "string"
+          },
+          "reference_image_urls": {
+            "default": [],
+            "description": "List of reference image URLs for style/content guidance. For the Seedance 2.0 series these can be real-person / character references that keep the subject consistent (up to 9). These images influence the look but are not used as frames. Cannot be combined with first_frame_url or last_frame_url.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Reference Image Urls",
+            "type": "array"
+          },
+          "reference_audio_urls": {
+            "default": [],
+            "description": "Seedance 2.0 only. Reference audio URLs (up to 3) for voice timbre / background music. Ignored by 1.x models.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Reference Audio Urls",
+            "type": "array"
+          },
+          "reference_video_urls": {
+            "default": [],
+            "description": "Seedance 2.0 only. Reference video URLs (up to 3) for subject, camera movement, motion or overall style. Ignored by 1.x models.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Reference Video Urls",
+            "type": "array"
+          },
+          "model": {
+            "default": "doubao-seedance-2-0-260128",
+            "description": "Model version to use. Use 'doubao-seedance-2-0-260128' (default) for latest-generation quality and multimodal reference, 'doubao-seedance-2-0-fast-260128' or 'doubao-seedance-2-0-mini-260615' for faster/cheaper 2.0, or a 1.x model such as 'doubao-seedance-1-0-lite-i2v-250428' for lightweight I2V.",
+            "enum": [
+              "doubao-seedance-2-5-260628",
+              "doubao-seedance-2-0-260128",
+              "doubao-seedance-2-0-fast-260128",
+              "doubao-seedance-2-0-mini-260615",
+              "doubao-seedance-1-5-pro-251215",
+              "doubao-seedance-1-0-pro-250528",
+              "doubao-seedance-1-0-pro-fast-251015",
+              "doubao-seedance-1-0-lite-t2v-250428",
+              "doubao-seedance-1-0-lite-i2v-250428"
+            ],
+            "title": "Model",
+            "type": "string"
+          },
+          "resolution": {
+            "default": "720p",
+            "description": "Video resolution. Options: '480p', '720p', '1080p', '4k'. '4k' is supported only by 'doubao-seedance-2-0-260128'; '2-5' maxes out at '1080p'; '2-0-fast' and '2-0-mini' max out at '720p'.",
+            "enum": [
+              "480p",
+              "720p",
+              "1080p",
+              "4k"
+            ],
+            "title": "Resolution",
+            "type": "string"
+          },
+          "ratio": {
+            "default": "16:9",
+            "description": "Video aspect ratio. Use 'adaptive' to match your input image ratio.",
+            "enum": [
+              "16:9",
+              "9:16",
+              "1:1",
+              "4:3",
+              "3:4",
+              "21:9",
+              "adaptive"
+            ],
+            "title": "Ratio",
+            "type": "string"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "maximum": 30,
+                "minimum": -1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Video duration in seconds. 1.0 series: 2–12; 1.5 Pro: 4–12; 2.0 series: 4–15; 2.5: 4–30. Use -1 for auto-duration (1.5 Pro and 2.x). Default is 5. Mutually exclusive with 'frames'.",
+            "title": "Duration"
+          },
+          "frames": {
+            "anyOf": [
+              {
+                "maximum": 289,
+                "minimum": 29,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Frame count for the generated video (1.0 series only). Must satisfy 25+4n (e.g. 29, 33, 37, ..., 289). Mutually exclusive with 'duration'.",
+            "title": "Frames"
+          },
+          "generate_audio": {
+            "default": false,
+            "description": "If true, generate audio. Supported by 'doubao-seedance-1-5-pro-251215' and the Seedance 2.x series. Default is false.",
+            "title": "Generate Audio",
+            "type": "boolean"
+          },
+          "seed": {
+            "default": -1,
+            "description": "Random seed. -1 for random. Default is -1.",
+            "maximum": 4294967295,
+            "minimum": -1,
+            "title": "Seed",
+            "type": "integer"
+          },
+          "return_last_frame": {
+            "default": false,
+            "description": "If true, return the last frame of the generated video. Default is false.",
+            "title": "Return Last Frame",
+            "type": "boolean"
+          },
+          "omni_reference_task_type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "auto",
+                  "reference",
+                  "edit",
+                  "extend"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Seedance 2.5 task type: auto, reference, edit, or extend.",
+            "title": "Omni Reference Task Type"
+          },
+          "output_format": {
+            "anyOf": [
+              {
+                "enum": [
+                  "mp4",
+                  "mov"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Seedance 2.5 output format: mp4 or mov.",
+            "title": "Output Format"
+          },
+          "tools": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/SeedanceWebSearchTool"
+                },
+                "maxItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional Seedance 2.5 web search tool configuration.",
+            "title": "Tools"
+          },
+          "priority": {
+            "default": 0,
+            "description": "Seedance 2.5 task priority from 0 to 9.",
+            "maximum": 9,
+            "minimum": 0,
+            "title": "Priority",
+            "type": "integer"
+          },
+          "safety_identifier": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Stable anonymous end-user identifier. Do not use personal information.",
+            "title": "Safety Identifier"
+          },
+          "callback_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Webhook callback URL for asynchronous notifications.",
+            "title": "Callback Url"
+          },
+          "execution_expires_after": {
+            "default": 172800,
+            "description": "Task timeout threshold in seconds. Default is 172800 (48 hours).",
+            "maximum": 259200,
+            "minimum": 3600,
+            "title": "Execution Expires After",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "prompt"
+        ],
+        "title": "seedance_generate_video_from_imageArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "seedance_generate_video_from_imageOutput",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    }
+  ],
+  "prompts": [
+    {
+      "name": "seedance_video_generation_guide",
+      "title": null,
+      "description": "Guide for choosing the right Seedance tool for video generation.",
+      "arguments": [],
+      "icons": null,
+      "meta": null
+    },
+    {
+      "name": "seedance_workflow_examples",
+      "title": null,
+      "description": "Common workflow examples for Seedance video generation.",
+      "arguments": [],
+      "icons": null,
+      "meta": null
+    },
+    {
+      "name": "seedance_prompt_suggestions",
+      "title": null,
+      "description": "Tips for writing effective Seedance video prompts.",
+      "arguments": [],
+      "icons": null,
+      "meta": null
+    }
+  ],
+  "localizations": [
+    {
+      "locale": "zh-CN",
+      "name": "Seedance（Ace Data Cloud 提供）",
+      "description": "通过 Ace Data Cloud 使用 Seedance，需要 Ace 服务 API Token；生成按当前服务价格计费。",
+      "tags": [
+        "seedance",
+        "video",
+        "image-to-video",
+        "acedatacloud"
+      ]
+    }
+  ]
+}

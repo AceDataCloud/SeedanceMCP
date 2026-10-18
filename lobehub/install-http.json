@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ace-seedance": {
+      "type": "http",
+      "url": "https://seedance.mcp.acedata.cloud/mcp"
+    }
+  }
+}
