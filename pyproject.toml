@@ -1,7 +1,7 @@
 [project]
 name = "mcp-seedance"
 version = "2026.4.5.0"
-description = "MCP Server for ByteDance Seedance AI Video Generation via AceDataCloud API"
+description = "Seedance video generation and task retrieval by Ace Data Cloud via MCP"
 readme = "README.pypi.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -22,6 +22,10 @@ keywords = [
     "acedata",
     "llm",
     "claude",
+    "video-generation",
+    "text-to-video",
+    "image-to-video",
+    "acedatacloud",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

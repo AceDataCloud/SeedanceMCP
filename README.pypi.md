@@ -16,6 +16,10 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server for AI 
 Generate AI videos directly from Claude, VS Code, or any MCP-compatible client.
 
 
+## Use Seedance in Glama
+
+Find the Ace-provided [Seedance source listing](https://glama.ai/mcp/servers/AceDataCloud/SeedanceMCP) or [remote connector](https://glama.ai/mcp/connectors/io.github.AceDataCloud/mcp-seedance). Follow the [Glama installation, API Token and first-use guide](https://github.com/AceDataCloud/SeedanceMCP/blob/main/readme/GLAMA.md). Public discovery and a successful personal connection are separate checks; generation uses your Ace account balance.
+
 ## Seedance in goose
 
 Use the independent **Seedance by Ace Data Cloud** native goose plugin: [install and API Token guide](goose/README.md) · [简体中文](goose/README_zh_Hans.md). It reuses this MCP server and does not imply goose Marketplace or default-provider inclusion.
