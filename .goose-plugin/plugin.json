@@ -1,0 +1,28 @@
+{
+  "name": "seedance-by-acedatacloud",
+  "version": "0.1.0",
+  "description": "Seedance by Ace Data Cloud: Seedance text-to-video and image-to-video. Independent goose MCP and Skill plugin.",
+  "author": {
+    "name": "Ace Data Cloud"
+  },
+  "homepage": "https://github.com/AceDataCloud/SeedanceMCP/blob/main/goose/README.md",
+  "repository": "https://github.com/AceDataCloud/SeedanceMCP",
+  "license": "MIT",
+  "keywords": [
+    "seedance",
+    "goose",
+    "acedatacloud"
+  ],
+  "skills": {
+    "paths": [
+      "./goose/skills"
+    ],
+    "exclusive": true
+  },
+  "mcpServers": {
+    "paths": [
+      "./.mcp.json"
+    ],
+    "exclusive": true
+  }
+}

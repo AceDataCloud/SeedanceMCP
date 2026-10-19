@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "seedance": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "mcp-seedance==2026.10.19.3",
+        "mcp-seedance"
+      ]
+    }
+  }
+}
