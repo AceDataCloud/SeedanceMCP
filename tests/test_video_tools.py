@@ -264,3 +264,77 @@ def test_seedance_tools_expose_metered_controls():
     ).parameters
     assert "priority" in params
     assert "safety_identifier" in params
+
+
+@pytest.mark.parametrize("image_mode", [False, True])
+async def test_inline_controls_are_not_overridden_by_omitted_arguments(image_mode):
+    from core.server import mcp
+
+    name = "seedance_generate_video_from_image" if image_mode else "seedance_generate_video"
+    args = {"prompt": "A bird --rs 1080p --rt 9:16 --dur 10 --cf true --wm true --seed 23"}
+    if image_mode:
+        args["first_frame_url"] = "https://example.com/image.jpg"
+    with patch(
+        "tools.video_tools.client.generate_video", new=AsyncMock(return_value={"task_id": "t"})
+    ) as call:
+        await mcp.call_tool(name, args)
+    body = call.await_args.kwargs
+    assert not {"resolution", "ratio", "duration", "camerafixed", "watermark", "seed"}.intersection(
+        body
+    )
+
+
+async def test_named_controls_still_override_inline_values_and_explicit_false():
+    from core.server import mcp
+
+    with patch(
+        "tools.video_tools.client.generate_video", new=AsyncMock(return_value={"task_id": "t"})
+    ) as call:
+        await mcp.call_tool(
+            "seedance_generate_video",
+            {
+                "prompt": "A bird --rs 1080p --rt 9:16 --dur 10 --cf true --wm true --seed 23",
+                "resolution": "480p",
+                "ratio": "1:1",
+                "duration": 8,
+                "camera_fixed": False,
+                "watermark": False,
+                "seed": -1,
+            },
+        )
+    body = call.await_args.kwargs
+    assert {
+        key: body[key]
+        for key in ("resolution", "ratio", "duration", "camerafixed", "watermark", "seed")
+    } == {
+        "resolution": "480p",
+        "ratio": "1:1",
+        "duration": 8,
+        "camerafixed": False,
+        "watermark": False,
+        "seed": -1,
+    }
+
+
+async def test_inline_frames_do_not_gain_default_duration():
+    with patch(
+        "tools.video_tools.client.generate_video", new=AsyncMock(return_value={"task_id": "t"})
+    ) as call:
+        await seedance_generate_video(prompt="A bird --frames 33")
+    assert "duration" not in call.await_args.kwargs
+
+
+async def test_omitted_controls_preserve_defaults_and_seedance_25_frame_ratio():
+    with patch(
+        "tools.video_tools.client.generate_video", new=AsyncMock(return_value={"task_id": "t"})
+    ) as call:
+        await seedance_generate_video(prompt="A bird")
+        assert call.await_args.kwargs["resolution"] == "720p"
+        assert call.await_args.kwargs["ratio"] == "16:9"
+        assert call.await_args.kwargs["duration"] == 5
+        await seedance_generate_video_from_image(
+            prompt="A bird",
+            first_frame_url="https://example.com/frame.jpg",
+            model="doubao-seedance-2-5-260628",
+        )
+        assert call.await_args.kwargs["ratio"] == "adaptive"

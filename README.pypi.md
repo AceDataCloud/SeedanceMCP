@@ -451,3 +451,7 @@ Made with love by [AceDataCloud](https://platform.acedata.cloud?utm_source=pypi&
 ## Cline setup / Cline 图文接入
 
 [Seedance by Ace Data Cloud — English guide](https://github.com/AceDataCloud/MCPs/blob/4a2fb4e17d322bc22c5742ab3a5bd48b24ec5bdc/seedance/docs/cline.md) · [完整中文图文步骤](https://github.com/AceDataCloud/MCPs/blob/4a2fb4e17d322bc22c5742ab3a5bd48b24ec5bdc/seedance/docs/cline.md#中文步骤). The Cline marketplace submission is pending review as of 2026-10-18; the guide labels the manual fallback separately. / Cline 官方目录投稿仍待审核，手动接入不等于已上架。
+
+## API parameter behavior
+
+The default model remains `doubao-seedance-2-0-260128`. Omitted controls honor inline prompt options such as `--rs`, `--rt`, and `--dur`; explicit named arguments take precedence. Without either form, defaults remain 720p, 16:9 and 5 seconds. Seedance 2.5 first/last-frame mode defaults to its required `adaptive` ratio. Both generation tools expose camera and watermark controls. Seedance 2.5 accepts up to 30 images, 10 audio references and 10 video references (50 total), including audio-only reference; 2.0 has smaller limits. Read current pricing from the service page; USD conversion depends on the credit package.

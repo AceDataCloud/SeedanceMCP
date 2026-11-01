@@ -1,5 +1,6 @@
 """Video generation tools for Seedance API."""
 
+import re
 from typing import Annotated, Any
 
 from pydantic import Field
@@ -19,6 +20,42 @@ from core.types import (
     SeedanceWebSearchTool,
 )
 from core.utils import format_video_result
+
+
+def _generation_controls(
+    prompt: str,
+    *,
+    resolution: Resolution | None,
+    ratio: AspectRatio | None,
+    duration: int | None,
+    frames: int | None,
+    seed: int | None,
+    camera_fixed: bool | None,
+    watermark: bool | None,
+    default_ratio: AspectRatio = DEFAULT_RATIO,
+) -> dict[str, Any]:
+    """Only apply defaults when neither a named nor an inline option is set."""
+    inline = {name.lower() for name in re.findall(r"--(\w+)(?:\s+|=)", prompt)}
+    values: dict[str, Any] = {}
+    for key, value, default, aliases in (
+        ("resolution", resolution, DEFAULT_RESOLUTION, {"rs", "resolution"}),
+        ("ratio", ratio, default_ratio, {"rt", "ratio"}),
+        ("camerafixed", camera_fixed, False, {"cf", "camerafixed"}),
+        ("watermark", watermark, False, {"wm", "watermark"}),
+    ):
+        if value is not None:
+            values[key] = value
+        elif not inline.intersection(aliases):
+            values[key] = default
+    if frames is not None:
+        values["frames"] = frames
+    elif duration is not None:
+        values["duration"] = duration
+    elif not inline.intersection({"frames", "dur", "duration"}):
+        values["duration"] = DEFAULT_DURATION
+    if seed is not None:
+        values["seed"] = seed
+    return values
 
 
 @mcp.tool()
@@ -42,8 +79,8 @@ async def seedance_generate_video(
             description=(
                 "Model version to use. Options: "
                 "'doubao-seedance-2-5-260628' (latest flagship, up to 30 seconds, "
-                "multimodal reference, edit/extend, default), "
-                "'doubao-seedance-2-0-260128' (highest resolution, supports 4k), "
+                "multimodal reference, edit/extend), "
+                "'doubao-seedance-2-0-260128' (default, highest resolution, supports 4k), "
                 "'doubao-seedance-2-0-fast-260128' (latest generation, faster, up to 720p), "
                 "'doubao-seedance-2-0-mini-260615' (latest generation, lightweight, "
                 "cheapest within the 2.0 series, up to 720p), "
@@ -56,7 +93,7 @@ async def seedance_generate_video(
         ),
     ] = DEFAULT_MODEL,
     resolution: Annotated[
-        Resolution,
+        Resolution | None,
         Field(
             description=(
                 "Video resolution. Options: '480p', '720p' (default), '1080p', '4k'. "
@@ -64,9 +101,9 @@ async def seedance_generate_video(
                 "'2-5' maxes out at '1080p'; '2-0-fast' and '2-0-mini' max out at '720p'."
             )
         ),
-    ] = DEFAULT_RESOLUTION,
+    ] = None,
     ratio: Annotated[
-        AspectRatio,
+        AspectRatio | None,
         Field(
             description=(
                 "Video aspect ratio. Options: '16:9' (landscape, default), "
@@ -74,7 +111,7 @@ async def seedance_generate_video(
                 "'21:9' (ultrawide), 'adaptive'."
             )
         ),
-    ] = DEFAULT_RATIO,
+    ] = None,
     duration: Annotated[
         int | None,
         Field(
@@ -104,14 +141,13 @@ async def seedance_generate_video(
         Field(
             description=(
                 "If true, generate audio along with the video. "
-                "Supported by 'doubao-seedance-1-5-pro-251215' and the "
-                "'doubao-seedance-2-0' series; other models ignore it. "
-                "Approximately doubles the cost. Default is false."
+                "Supported by 'doubao-seedance-1-5-pro-251215' and the Seedance 2.x series. "
+                "Pricing depends on the model and output settings. Default is false."
             )
         ),
     ] = False,
     seed: Annotated[
-        int,
+        int | None,
         Field(
             description=(
                 "Random seed for reproducible generation. "
@@ -120,15 +156,15 @@ async def seedance_generate_video(
             ge=-1,
             le=4294967295,
         ),
-    ] = -1,
+    ] = None,
     camera_fixed: Annotated[
-        bool,
-        Field(description=("If true, keep the camera fixed during generation. Default is false.")),
-    ] = False,
+        bool | None,
+        Field(description=("If true, keep the camera fixed. Defaults to false unless set inline.")),
+    ] = None,
     watermark: Annotated[
-        bool,
-        Field(description="If true, add a watermark to the video. Default is false."),
-    ] = False,
+        bool | None,
+        Field(description="If true, add a watermark. Defaults to false unless set inline."),
+    ] = None,
     return_last_frame: Annotated[
         bool,
         Field(
@@ -202,22 +238,23 @@ async def seedance_generate_video(
     payload: dict[str, Any] = {
         "model": model,
         "content": [{"type": "text", "text": prompt}],
-        "resolution": resolution,
-        "ratio": ratio,
-        "camerafixed": camera_fixed,
-        "watermark": watermark,
         "return_last_frame": return_last_frame,
         "execution_expires_after": execution_expires_after,
         "priority": priority,
     }
 
-    if frames is not None:
-        payload["frames"] = frames
-    else:
-        payload["duration"] = duration if duration is not None else DEFAULT_DURATION
-
-    if seed != -1:
-        payload["seed"] = seed
+    payload.update(
+        _generation_controls(
+            prompt,
+            resolution=resolution,
+            ratio=ratio,
+            duration=duration,
+            frames=frames,
+            seed=seed,
+            camera_fixed=camera_fixed,
+            watermark=watermark,
+        )
+    )
 
     if generate_audio:
         payload["generate_audio"] = True
@@ -277,8 +314,8 @@ async def seedance_generate_video_from_image(
         Field(
             description=(
                 "List of reference image URLs for style/content guidance. "
-                "For the Seedance 2.0 series these can be real-person / character "
-                "references that keep the subject consistent (up to 9). "
+                "Subject or style references: up to 9 images for Seedance 2.0 or "
+                "30 for Seedance 2.5. "
                 "These images influence the look but are not used as frames. "
                 "Cannot be combined with first_frame_url or last_frame_url."
             )
@@ -288,8 +325,9 @@ async def seedance_generate_video_from_image(
         list[str],
         Field(
             description=(
-                "Seedance 2.0 only. Reference audio URLs (up to 3) for voice timbre / "
-                "background music. Ignored by 1.x models."
+                "Reference audio for voice timbre or music: up to 3 for Seedance 2.0 "
+                "with image/video input, or 10 for 2.5 (also supports audio-only reference). "
+                "Not supported by 1.x models. Combined 2.5 media limit: 50."
             )
         ),
     ] = [],  # noqa: B006
@@ -297,8 +335,9 @@ async def seedance_generate_video_from_image(
         list[str],
         Field(
             description=(
-                "Seedance 2.0 only. Reference video URLs (up to 3) for subject, camera "
-                "movement, motion or overall style. Ignored by 1.x models."
+                "Reference videos for subject, camera, motion or style: up to 3 for "
+                "Seedance 2.0 or 10 for 2.5. Not supported by 1.x models. "
+                "Combined 2.5 media limit: 50."
             )
         ),
     ] = [],  # noqa: B006
@@ -315,7 +354,7 @@ async def seedance_generate_video_from_image(
         ),
     ] = DEFAULT_MODEL,
     resolution: Annotated[
-        Resolution,
+        Resolution | None,
         Field(
             description=(
                 "Video resolution. Options: '480p', '720p', '1080p', '4k'. "
@@ -323,11 +362,11 @@ async def seedance_generate_video_from_image(
                 "'2-5' maxes out at '1080p'; '2-0-fast' and '2-0-mini' max out at '720p'."
             )
         ),
-    ] = DEFAULT_RESOLUTION,
+    ] = None,
     ratio: Annotated[
-        AspectRatio,
+        AspectRatio | None,
         Field(description=("Video aspect ratio. Use 'adaptive' to match your input image ratio.")),
-    ] = DEFAULT_RATIO,
+    ] = None,
     duration: Annotated[
         int | None,
         Field(
@@ -362,13 +401,21 @@ async def seedance_generate_video_from_image(
         ),
     ] = False,
     seed: Annotated[
-        int,
+        int | None,
         Field(
             description="Random seed. -1 for random. Default is -1.",
             ge=-1,
             le=4294967295,
         ),
-    ] = -1,
+    ] = None,
+    camera_fixed: Annotated[
+        bool | None,
+        Field(description="Keep the camera fixed. Defaults to false unless set inline."),
+    ] = None,
+    watermark: Annotated[
+        bool | None,
+        Field(description="Add a watermark. Defaults to false unless set inline."),
+    ] = None,
     return_last_frame: Annotated[
         bool,
         Field(
@@ -426,7 +473,8 @@ async def seedance_generate_video_from_image(
     - You need precise control over the video's visual content
 
     Note: reference_image_urls cannot be combined with first_frame_url/last_frame_url.
-    At least one image input must be provided.
+    At least one image, video, or audio reference must be provided.
+    Seedance 2.5 first/last-frame mode requires ratio=adaptive; it is selected when omitted.
 
     Returns:
         Task ID and generated video information including URLs and metadata.
@@ -495,20 +543,28 @@ async def seedance_generate_video_from_image(
     payload: dict[str, Any] = {
         "model": model,
         "content": content,
-        "resolution": resolution,
-        "ratio": ratio,
         "return_last_frame": return_last_frame,
         "execution_expires_after": execution_expires_after,
         "priority": priority,
     }
 
-    if frames is not None:
-        payload["frames"] = frames
-    else:
-        payload["duration"] = duration if duration is not None else DEFAULT_DURATION
-
-    if seed != -1:
-        payload["seed"] = seed
+    payload.update(
+        _generation_controls(
+            prompt,
+            resolution=resolution,
+            ratio=ratio,
+            duration=duration,
+            frames=frames,
+            seed=seed,
+            camera_fixed=camera_fixed,
+            watermark=watermark,
+            default_ratio=(
+                "adaptive"
+                if model == "doubao-seedance-2-5-260628" and (first_frame_url or last_frame_url)
+                else DEFAULT_RATIO
+            ),
+        )
+    )
 
     if generate_audio:
         payload["generate_audio"] = True
