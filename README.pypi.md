@@ -31,6 +31,14 @@ Open [Seedance in the official MCP Registry](https://registry.modelcontextprotoc
 Search for `mcp-seedance` (or `io.github.AceDataCloud/mcp-seedance`) to locate the exact entry. The official Registry search currently matches server names; spaces in a display title do not create extra search aliases. If your client does not consume the catalog, use the client-specific connection instructions below and check **Applications → General application** for your token, service permissions, balance and current price. Keep the original task ID when checking asynchronous results.
 
 
+## Verify the connection before generating
+
+After installation, discover the server's tools and call `seedance_list_models` with no arguments. This reference tool returns locally defined model or action information without calling a generation API. It does **not** validate your application key, account balance, service access, or current price. Your client's Chat model can still create separate charges.
+
+To check authenticated access without creating media, query a task already owned by your application using the task-lookup tool and the **same original task ID**. If you have no existing task, stop after discovery/reference output; do not generate media just to test installation. Review [current pricing](https://platform.acedata.cloud/models?utm_source=pypi&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_mcp_package_models) before any new generation.
+
+For missing tools, reconnect and refresh the tool list. For 401/403, check the existing application's key, service permissions, Allowed APIs, expiration and usage limit before replacing credentials. Keep a task/trace ID for other failures, never your key; do not automatically retry a paid operation.
+
 ## Connect: hosted OAuth, API token, or local stdio
 
 The hosted endpoint is `https://seedance.mcp.acedata.cloud/mcp`. Choose one route for the MCP client:
