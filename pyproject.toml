@@ -74,7 +74,7 @@ mcp-seedance = "main:main"
 
 [project.urls]
 Homepage = "https://github.com/AceDataCloud/SeedanceMCP"
-Documentation = "https://platform.acedata.cloud/documents/seedance-mcp?utm_source=pypi&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_mcp_package_quick_start"
+Documentation = "https://platform.acedata.cloud/documents/seedance-mcp?utm_source=pypi&utm_medium=referral&utm_campaign=evergreen"
 Repository = "https://github.com/AceDataCloud/SeedanceMCP"
 Issues = "https://github.com/AceDataCloud/SeedanceMCP/issues"
 Changelog = "https://github.com/AceDataCloud/SeedanceMCP/blob/main/CHANGELOG.md"
