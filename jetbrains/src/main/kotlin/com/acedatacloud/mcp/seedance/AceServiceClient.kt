@@ -46,10 +46,6 @@ class AceServiceClient(private val endpoint: URI, private val token: String) {
         if (result.get("isError")?.asBoolean == true) {
             throw IllegalStateException(text.ifBlank { "The service returned a tool error." })
         }
-        if (name == "seedance_list_models" && "".isNotEmpty()) {
-            return text.lines().filter { it.contains("") }.joinToString("\n")
-                .ifBlank { "No Seedance models were listed. Do not submit a generation until your model is available." }
-        }
         return text.ifBlank { result.toString() }
     }
 
