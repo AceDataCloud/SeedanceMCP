@@ -1,4 +1,4 @@
-# Seedance by Ace Data Cloud：中文安装与首用指南
+# Seedance：中文安装与首用指南
 
 [English](https://github.com/AceDataCloud/SeedanceMCP/blob/main/README.md)
 

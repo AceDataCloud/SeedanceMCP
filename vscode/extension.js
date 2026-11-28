@@ -14,7 +14,7 @@
 const vscode = require("vscode");
 
 const PROVIDER_ID = "acedatacloud.seedance";
-const SERVER_LABEL = "Seedance by Ace Data Cloud";
+const SERVER_LABEL = "Seedance";
 const SERVER_URL = "https://seedance.mcp.acedata.cloud/mcp";
 const SET_TOKEN_CMD = "acedatacloud.seedance.setApiToken";
 const CLEAR_TOKEN_CMD = "acedatacloud.seedance.clearApiToken";

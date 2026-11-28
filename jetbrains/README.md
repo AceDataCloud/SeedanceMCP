@@ -1,4 +1,4 @@
-# Seedance by Ace Data Cloud
+# Seedance
 
 Independent Seedance video integration provided by Ace Data Cloud for JetBrains IDEs. Not an official Seedance or JetBrains product.
 

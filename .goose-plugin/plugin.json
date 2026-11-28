@@ -1,7 +1,7 @@
 {
   "name": "seedance-by-acedatacloud",
   "version": "0.1.0",
-  "description": "Seedance by Ace Data Cloud: Seedance text-to-video and image-to-video. Independent goose MCP and Skill plugin.",
+  "description": "Seedance: Seedance text-to-video and image-to-video. Independent goose MCP and Skill plugin.",
   "author": {
     "name": "Ace Data Cloud"
   },

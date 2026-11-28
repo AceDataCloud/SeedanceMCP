@@ -1,8 +1,8 @@
-# Seedance in Glama — by Ace Data Cloud
+# Seedance in Glama
 
 [简体中文](#中文操作指南) · [Open the service listing](https://glama.ai/mcp/servers/AceDataCloud/SeedanceMCP) · [Current access and pricing](https://platform.acedata.cloud/models?utm_source=glama&utm_medium=referral&utm_campaign=evergreen)
 
-Use **Seedance by Ace Data Cloud** for text-to-video, image-to-video, and task results. Ace provides this integration and bills its API usage; this is not a model developer's official Glama app. It reuses the existing `mcp-seedance` server, rather than asking you to install an unrelated Ace bundle.
+Use **Seedance** for text-to-video, image-to-video, and task results. Ace provides this integration and bills its API usage; this is not a model developer's official Glama app. It reuses the existing `mcp-seedance` server, rather than asking you to install an unrelated Ace bundle.
 
 ## 1. Open the correct official Glama entry
 

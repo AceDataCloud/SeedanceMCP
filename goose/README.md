@@ -1,4 +1,4 @@
-# Seedance by Ace Data Cloud for goose
+# Seedance for goose
 
 An independent **Seedance** plugin maintained by **Ace Data Cloud**. It installs the existing published `mcp-seedance` MCP server and the `seedance-by-acedatacloud:seedance-video` workflow through goose's native Open Plugins support. It is not made or endorsed by the Seedance brand, is not bundled with goose, and is not a listing in goose's retired extension directory.
 

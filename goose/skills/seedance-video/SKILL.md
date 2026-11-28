@@ -4,7 +4,7 @@ description: Use Seedance through Ace Data Cloud in goose for Seedance text-to-v
 license: MIT
 ---
 
-# Seedance by Ace Data Cloud
+# Seedance
 
 Use the MCP tools installed by this plugin. Match tools by their suffix because goose namespaces them with `seedance-by-acedatacloud`.
 

@@ -1,4 +1,4 @@
-# Seedance by Ace Data Cloud
+# Seedance
 
 Seedance video generation by Ace Data Cloud — text, image and existing task results in VS Code Chat.
 [简体中文](https://github.com/AceDataCloud/SeedanceMCP/blob/main/vscode/README.zh-CN.md)
@@ -23,13 +23,13 @@ can call it directly from chat.
 1. **Install this extension.** VS Code registers the `seedance` MCP server automatically.
 2. **Get an application API key** using the detailed steps below. Check service access and your current balance before the first request.
 3. **Select a model with tool calling in VS Code Chat.** You can use your existing model, or install [Ace Data Cloud Chat Models](https://marketplace.visualstudio.com/items?itemName=acedatacloud.chat-models). For the Ace model, first follow its [setup guide](https://github.com/AceDataCloud/VSCodeModelProvider#4-show-the-model-in-chat), open **Chat: Manage Language Models**, make the model visible, and select it in Chat. BYOK Chat does not require GitHub sign-in or a Copilot plan; organization policies still apply.
-4. **Enable this server's tools.** Open **Chat → Agent → Configure Tools** and select only the tools you need under **Seedance by Ace Data Cloud**. If the list is empty, choose **Update Tools**. The extension prompts for the API key on first use and saves it in VS Code's `SecretStorage`. Disable another copy of the same server from the Ace MCP bundle or manual `mcp.json` to avoid duplicate tools.
+4. **Enable this server's tools.** Open **Chat → Agent → Configure Tools** and select only the tools you need under **Seedance**. If the list is empty, choose **Update Tools**. The extension prompts for the API key on first use and saves it in VS Code's `SecretStorage`. Disable another copy of the same server from the Ace MCP bundle or manual `mcp.json` to avoid duplicate tools.
 5. **Verify one result.** Check the Tool Reference below and current pricing before running a request. If you already have a task ID, enable its task-query tool and query that same ID first. An accepted generation is not a completed result: poll the original task until it reaches a successful terminal state, open the returned media, and match the task ID in [Usage](https://platform.acedata.cloud/console/usage?utm_source=vscode_marketplace&utm_medium=referral&utm_campaign=evergreen). Do not resubmit generation to poll. Model Chat and background utility calls can add separate charges to the service request.
 
 You can rotate or remove the API key any time from the command palette:
 
-- **Seedance by Ace Data Cloud: Set Ace Data Cloud API Key**
-- **Seedance by Ace Data Cloud: Clear Ace Data Cloud API Key**
+- **Seedance: Set Ace Data Cloud API Key**
+- **Seedance: Clear Ace Data Cloud API Key**
 
 > The default config talks to the **hosted streamable-HTTP endpoint** at
 > `https://seedance.mcp.acedata.cloud/mcp` — no Python, no `uvx`, no local install needed.
@@ -84,7 +84,7 @@ and registers a single hosted server with VS Code:
 
 ```text
 Provider id : acedatacloud.seedance
-Server label: Seedance by Ace Data Cloud
+Server label: Seedance
 Server URL  : https://seedance.mcp.acedata.cloud/mcp
 Transport   : Streamable HTTP
 Auth        : Bearer API key from VS Code SecretStorage (or $ACEDATACLOUD_API_TOKEN)
@@ -153,8 +153,8 @@ MIT — see [LICENSE](LICENSE).
 
 ## First use: discover, then read an existing result
 
-1. Install [Seedance by Ace Data Cloud](https://marketplace.visualstudio.com/items?itemName=acedatacloud.mcp-seedance). This is an independent service extension; the Ace toolbox is optional. Do not enable two copies of the same server.
-2. Complete the application-key steps above. Run **Seedance by Ace Data Cloud: Set Ace Data Cloud API Key** and paste only the token. No workspace configuration file is needed.
+1. Install [Seedance](https://marketplace.visualstudio.com/items?itemName=acedatacloud.mcp-seedance). This is an independent service extension; the Ace toolbox is optional. Do not enable two copies of the same server.
+2. Complete the application-key steps above. Run **Seedance: Set Ace Data Cloud API Key** and paste only the token. No workspace configuration file is needed.
 3. In **Chat: Manage Language Models**, show and select a tool-capable model. If you use the separate Ace Chat Models extension, follow its [model setup](https://github.com/AceDataCloud/VSCodeModelProvider#4-show-the-model-in-chat). Then open **Chat → Agent → Configure Tools** and enable only `seedance_list_models` for this first check.
 4. Send the prompt below and inspect the confirmation's tool name and arguments. Your Chat model and background requests may be billed even when the service tool is read-only.
 
